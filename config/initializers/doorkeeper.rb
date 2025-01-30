@@ -97,7 +97,7 @@ Doorkeeper.configure do
   # Prefer access_token_expires_in 100.years or similar,
   # which would be functionally equivalent and avoid the risk of unexpected behavior by callers.
   #
-  # access_token_expires_in 2.hours
+  access_token_expires_in 10.hours
 
   # Assign custom TTL for access tokens. Will be used instead of access_token_expires_in
   # option if defined. In case the block returns `nil` value Doorkeeper fallbacks to
@@ -264,6 +264,9 @@ Doorkeeper.configure do
   # (disabled by default)
   #
   # enforce_configured_scopes
+  #SB: Scopes (optional, define as needed)
+  default_scopes :read, :public
+  optional_scopes :admin
 
   # Change the way client credentials are retrieved from the request object.
   # By default it retrieves first from the `HTTP_AUTHORIZATION` header, then
@@ -531,10 +534,6 @@ Doorkeeper.configure do
   # WWW-Authenticate Realm (default: "Doorkeeper").
   #
   # realm "Doorkeeper"
-
-  #SB: Scopes (optional, define as needed)
-  default_scopes :read
-  optional_scopes :write
 end
 
 # SB: JWT generator
@@ -549,7 +548,6 @@ module Doorkeeper
         sub: options[:application].uid
       }
 
-      binding.pry
       ::JWT.encode(
         payload,
         "4f7a233b5dbabd32688c775dfcc6e580c2b384979e62d80dfc93ce6afd72ef33226b3f7e2319f088f9c53029c648901a166cedfdcb83dd8ca9ac6c6251b8236d", # SB: Replace with an environment variable for better security

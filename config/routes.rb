@@ -12,8 +12,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
   namespace :api do
     namespace :v1 do
+      resources :products
+      resources :tests, only: %i[index create update]
       resources :unsecure
     end
   end

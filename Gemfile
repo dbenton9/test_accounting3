@@ -53,3 +53,4 @@ end
 
 gem 'doorkeeper'
 gem 'doorkeeper-jwt'
+gem 'pry'
